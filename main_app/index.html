@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homepage</title>
+    <!-- Bootstrap CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      /* Optional: Add custom styles here */
+      .form-container {
+        margin-bottom: 20px; /* Jarak antara form dan tombol */
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5 text-center">
+      <h1>Travel Information</h1>
+      <div class="row mt-4">
+        <div class="col">
+          <h2>Train Tickets</h2>
+          <button class="btn btn-primary" onclick="toggleTable('trainTable')">
+            Get Train Tickets
+          </button>
+          <div id="trainOrderFormContainer" class="hidden">
+            <form id="trainOrderForm">
+              <label for="customerNameTrain">Customer Name:</label>
+              <input
+                type="email"
+                id="customerNameTrain"
+                name="customerNameTrain"
+              /><br /><br />
+              <label for="emailTrain">Email:</label>
+              <input
+                type="email"
+                id="emailTrain"
+                name="emailTrain"
+              /><br /><br />
+              <label for="phoneNumberTrain">Phone Number:</label>
+              <input
+                type="tel"
+                id="phoneNumberTrain"
+                name="phoneNumberTrain"
+              /><br /><br />
+              <button type="button" onclick="createOrder('train')">
+                Place Order
+              </button>
+            </form>
+          </div>
+          <table class="table hidden" id="trainTable">
+            <thead>
+              <tr>
+                <th>Departure Station</th>
+                <th>Destination Station</th>
+                <th>Price</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="trainList"></tbody>
+          </table>
+        </div>
+        <div class="col">
+          <h2>Flight Tickets</h2>
+          <button class="btn btn-primary" onclick="toggleTable('flightTable')">
+            Get Flight Tickets
+          </button>
+          <div id="flightOrderFormContainer" class="hidden">
+            <form id="flightOrderForm">
+              <label for="customerNameFlight">Customer Name:</label>
+              <input
+                type="text"
+                id="customerNameFlight"
+                name="customerNameFlight"
+              /><br /><br />
+
+              <label for="emailFlight">Email:</label>
+              <input
+                type="email"
+                id="emailFlight"
+                name="emailFlight"
+              /><br /><br />
+
+              <label for="phoneNumberFlight">Phone Number:</label>
+              <input
+                type="tel"
+                id="phoneNumberFlight"
+                name="phoneNumberFlight"
+              /><br /><br />
+
+              <button type="button" onclick="createOrder('flight')">
+                Place Order
+              </button>
+            </form>
+          </div>
+          <table class="table hidden" id="flightTable">
+            <thead>
+              <tr>
+                <th>Departure City</th>
+                <th>Destination City</th>
+                <th>Price</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="flightList"></tbody>
+          </table>
+        </div>
+        <div class="col">
+          <h2>Hotels</h2>
+          <button class="btn btn-primary" onclick="toggleTable('hotelTable')">
+            Get Hotels
+          </button>
+          <div id="hotelOrderFormContainer" class="hidden">
+            <form id="hotelOrderForm">
+              <label for="customerNameHotel">Customer Name:</label>
+              <input
+                type="text"
+                id="customerNameHotel"
+                name="customerNameHotel"
+              /><br /><br />
+
+              <label for="emailHotel">Email:</label>
+              <input
+                type="email"
+                id="emailHotel"
+                name="emailHotel"
+              /><br /><br />
+
+              <label for="phoneNumberHotel">Phone Number:</label>
+              <input
+                type="tel"
+                id="phoneNumberHotel"
+                name="phoneNumberHotel"
+              /><br /><br />
+
+              <button type="button" onclick="createOrder('hotel')">
+                Place Order
+              </button>
+            </form>
+          </div>
+          <table class="table hidden" id="hotelTable">
+            <thead>
+              <tr>
+                <th>Hotel Name</th>
+                <th>Location</th>
+                <th>Price per Night</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="hotelList"></tbody>
+          </table>
+        </div>
+        <div class="col">
+          <h2>Attractions</h2>
+          <button
+            class="btn btn-primary"
+            onclick="toggleTable('attractionsTable')"
+          >
+            Get Attractions
+          </button>
+          <div id="attractionOrderFormContainer" class="hidden">
+            <form id="attractionOrderForm">
+              <label for="customerNameAttraction">Customer Name:</label>
+              <input
+                type="text"
+                id="customerNameAttraction"
+                name="customerNameAttraction"
+              /><br /><br />
+
+              <label for="emailAttraction">Email:</label>
+              <input
+                type="email"
+                id="emailAttraction"
+                name="emailAttraction"
+              /><br /><br />
+
+              <label for="phoneNumberAttraction">Phone Number:</label>
+              <input
+                type="tel"
+                id="phoneNumberAttraction"
+                name="phoneNumberAttraction"
+              /><br /><br />
+              <button type="button" onclick="createOrder('attraction')">
+                Place Order
+              </button>
+            </form>
+          </div>
+          <table class="table hidden" id="attractionsTable">
+            <thead>
+              <tr>
+                <th>Attraction Name</th>
+                <th>Location</th>
+                <th>Ticket Price</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="attractionsList"></tbody>
+          </table>
+        </div>
+        <div class="col">
+          <h2>Travel Information</h2>
+          <button
+            class="btn btn-primary"
+            onclick="toggleTable('travelInfoTable')"
+          >
+            Get Travel Information
+          </button>
+          <table class="table hidden" id="travelInfoTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Image</th>
+              </tr>
+            </thead>
+            <tbody id="travelInfoList"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS CDN (Optional, if you need Bootstrap JavaScript functionality) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- JavaScript to fetch data from APIs -->
+    <script>
+      function toggleOrderForm(orderType) {
+        const formContainerId = orderType + "OrderFormContainer";
+        const formContainer = document.getElementById(formContainerId);
+        if (formContainer.classList.contains("hidden")) {
+          formContainer.classList.remove("hidden");
+        } else {
+          formContainer.classList.add("hidden");
+        }
+      }
+
+      function createOrderButton(id, orderType) {
+        const button = document.createElement("button");
+        button.classList.add("btn", "btn-success", "btn-sm");
+        button.textContent = "Order";
+        button.onclick = function () {
+          toggleOrderForm(orderType); // Menampilkan form saat tombol "Order" diklik
+        };
+        return button;
+      }
+      function getTravelInfo() {
+        fetch("/infowisata")
+          .then((response) => response.json())
+          .then((data) => {
+            const travelInfoTable = document.getElementById("travelInfoTable");
+            travelInfoTable.classList.remove("hidden"); // Show the table
+            const travelInfoList = document.getElementById("travelInfoList");
+            travelInfoList.innerHTML = ""; // Clear previous list
+            data.forEach((info) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                            <td>${info.nama}</td>
+                            <td>${info.desc}</td>
+                            <td>$${info.harga}</td>
+                            <td><img src="${info.gambar_url}" alt="${info.nama}" style="width: 100px;"></td>
+                        `;
+              travelInfoList.appendChild(row);
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching travel information:", error)
+          );
+      }
+      function toggleTable(tableId) {
+        const table = document.getElementById(tableId);
+        if (table.classList.contains("hidden")) {
+          table.classList.remove("hidden");
+          fetchData(tableId);
+          if (tableId === "travelInfoTable") {
+            getTravelInfo();
+          }
+        } else {
+          table.classList.add("hidden");
+        }
+
+        // Hide the form related to the clicked "Get Ticket" button
+        const formContainerId = tableId.replace("Table", "OrderFormContainer");
+        const formContainer = document.getElementById(formContainerId);
+        if (formContainer) {
+          formContainer.classList.add("hidden");
+        }
+      }
+
+      // Function to fetch data from respective APIs
+      function fetchData(tableId) {
+        switch (tableId) {
+          case "trainTable":
+            getTrainTickets();
+            break;
+          case "flightTable":
+            getFlightTickets();
+            break;
+          case "hotelTable":
+            getHotels();
+            break;
+          case "attractionsTable":
+            getAttractions();
+            break;
+          default:
+            break;
+        }
+      }
+
+      function getTrainTickets() {
+        fetch("/train")
+          .then((response) => response.json())
+          .then((data) => {
+            const trainTable = document.getElementById("trainTable");
+            trainTable.classList.remove("hidden"); // Show the table
+            const trainList = document.getElementById("trainList");
+            trainList.innerHTML = ""; // Clear previous list
+            data.data.forEach((ticket) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                    <td>${ticket.departure_station}</td>
+                    <td>${ticket.destination_station}</td>
+                    <td>$${ticket.price}</td>
+                    <td></td>
+                `;
+              const actionCell = row.querySelector("td:last-child");
+              actionCell.appendChild(createOrderButton(ticket.id, "train"));
+              trainList.appendChild(row);
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching train tickets:", error)
+          );
+      }
+
+      // Function to fetch flight tickets data
+      function getFlightTickets() {
+        fetch("/flight")
+          .then((response) => response.json())
+          .then((data) => {
+            const flightTable = document.getElementById("flightTable");
+            flightTable.classList.remove("hidden"); // Show the table
+            const flightList = document.getElementById("flightList");
+            flightList.innerHTML = ""; // Clear previous list
+            data.data.forEach((ticket) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+          <td>${ticket.departure_city}</td>
+          <td>${ticket.destination_city}</td>
+          <td>$${ticket.price}</td>
+          <td></td>
+        `;
+              const actionCell = row.querySelector("td:last-child");
+              actionCell.appendChild(createOrderButton(ticket.id, "flight"));
+              flightList.appendChild(row);
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching flight tickets:", error)
+          );
+      }
+
+      // Function to fetch hotels data
+      function getHotels() {
+        fetch("/hotel")
+          .then((response) => response.json())
+          .then((data) => {
+            const hotelTable = document.getElementById("hotelTable");
+            hotelTable.classList.remove("hidden"); // Show the table
+            const hotelList = document.getElementById("hotelList");
+            hotelList.innerHTML = ""; // Clear previous list
+            data.data.forEach((hotel) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                    <td>${hotel.hotel_name}</td>
+                    <td>${hotel.location}</td>
+                    <td>$${hotel.price_per_night}</td>
+                    <td></td>
+                `;
+              const actionCell = row.querySelector("td:last-child");
+              actionCell.appendChild(createOrderButton(hotel.id, "hotel"));
+              hotelList.appendChild(row);
+            });
+          })
+          .catch((error) => console.error("Error fetching hotels:", error));
+      }
+
+      // Function to fetch attractions data
+      function getAttractions() {
+        fetch("/attractions")
+          .then((response) => response.json())
+          .then((data) => {
+            const attractionsTable =
+              document.getElementById("attractionsTable");
+            attractionsTable.classList.remove("hidden"); // Show the table
+            const attractionsList = document.getElementById("attractionsList");
+            attractionsList.innerHTML = ""; // Clear previous list
+            data.data.forEach((attraction) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+          <td>${attraction.attraction_name}</td>
+          <td>${attraction.location}</td>
+          <td>$${attraction.ticket_price}</td>
+          <td></td>
+        `;
+              const actionCell = row.querySelector("td:last-child");
+              actionCell.appendChild(
+                createOrderButton(attraction.id, "attraction")
+              );
+              attractionsList.appendChild(row);
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching attractions:", error)
+          );
+      }
+
+      // Function to create order form and handle order submission
+      function createOrder(orderType) {
+        const customerNameField = document.getElementById(
+          `customerName${
+            orderType.charAt(0).toUpperCase() + orderType.slice(1)
+          }`
+        );
+        const emailField = document.getElementById(
+          `email${orderType.charAt(0).toUpperCase() + orderType.slice(1)}`
+        );
+        const phoneNumberField = document.getElementById(
+          `phoneNumber${orderType.charAt(0).toUpperCase() + orderType.slice(1)}`
+        );
+
+        const customerName = customerNameField.value;
+        const email = emailField.value;
+        const phoneNumber = phoneNumberField.value;
+
+        const url = "/order";
+
+        const data = {
+          orderType: orderType,
+          customerName: customerName,
+          email: email,
+          phoneNumber: phoneNumber,
+        };
+
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => {
+            if (response.ok) {
+              alert("Order placed successfully!");
+            } else {
+              alert("Failed to place order. Please try again.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error placing order:", error);
+            alert("An error occurred. Please try again later.");
+          });
+      }
+    </script>
+  </body>
+</html>

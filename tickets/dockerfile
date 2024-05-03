@@ -1,0 +1,14 @@
+FROM node:14
+
+WORKDIR /tickets
+
+COPY package.json /tickets/
+COPY package-lock.json /tickets/  
+
+RUN npm install
+
+COPY server.js /tickets/
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]
